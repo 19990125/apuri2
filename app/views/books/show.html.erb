@@ -1,0 +1,43 @@
+<main>
+        <p id="notice"></p>
+        <div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <h2>User info</h2>
+      <%= attachment_image_tag @user, :image, fallback: "no_image.jpg" %><table class="table">
+  <tbody><tr></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= @user.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= @user.body %>
+  </tr>
+</tbody></table>
+<div class="row">
+  <%=link_to edit_user_path(current_user.id),class: "btn btn-outline-secondary w-100" do%>
+ <i class="fas fa-user-cog" > </i>
+  <%end%>
+</div>
+     <%= render 'books/list', book: @book %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+  		<h2>Book detail</h2>
+  		<table class="table">
+  	  <tbody>
+  		      <td class="col-md-1">
+        　　　<%= attachment_image_tag @user, :image, fallback: "no_image.jpg", size:'40x40' %>
+        　　　<%= link_to "#{current_user.name}", user_path(current_user) %></td>
+              <td class="col-md-2"><%= @book.title%></td>
+  		      <td class="col-md-5"><%= @book.opinion%></td>
+  		        <% if @user.id == current_user.id %>
+              <td><%= link_to "edit", edit_book_path(@book),class:"btn btn-outline-secondary" %></td>
+              <td><%= link_to "Destroy", book_path(@book), method: :delete %></td>
+              <% end %>
+      </tbody>
+</table>
+</div>
+</div>
+</div>
+</main>

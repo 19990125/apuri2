@@ -1,0 +1,31 @@
+  <p id="notice"></p>
+      <div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
+      <h2>Log in</h2>
+      <%= form_with model: @user, url: user_session_path, local: true do |f| %>
+      <form action="/users/sign_in" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="BOuXjny7hOVu4EF52DDY4JPn6RfNUhoGAWZdqla6WB8xvY34ubfs1Z6zy9tYZWtJa++JyIeqnWQJOyDNEDsHRA=="></input>
+        <div class="field">
+          <label for="user_name">Name</label><br>
+          <%= f.text_field:name %>
+        </div>
+        <div class="field">
+          <label for="user_password">Password</label><br>
+          <%= f.text_field:password %>
+        </div>
+          <div class="field">
+            <input name="user[remember_me]" type="hidden" value="0"><input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me"></input>
+            <label for="user_remember_me">Remember me</label>
+          </div>
+        <div class="actions">
+          <input type="submit" name="commit" value="Log in" class="btn btn-sm btn-primary" data-disable-with="Log in"></input>
+        </div>
+       </form>
+       </div>
+       </div>
+       </div>
+       <%end%>
+
+  <a href="/users/sign_up">Sign up</a><br>
+
+  <a href="/users/password/new">Forgot your password?</a><br>
