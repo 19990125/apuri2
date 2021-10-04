@@ -1,4 +1,10 @@
-  <p id="notice"></p>
+<% if @user.errors.any? %>
+  <%= @user.errors.count %>errors prohibited this user from being saved:
+  <% @user.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+<p id="notice"></p>
    <div class="container">
   <div class="row">
     <div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0">
@@ -6,22 +12,22 @@
       <%= form_with model: @user, url: user_registration_path, id: 'new_user', class: 'new_user', local: true do |f| %>
       <!--<form id="new_user" class="new_user" action="/users" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"></input><input type="hidden" name="authenticity_token" value="R3NrQb6dnlY9aNmVcrQVuFZMkNJWnDDOMgQBo5oGIX7UunQ+iZeMeGcQt2FklWVZU9i8JRt6dO9fMHyEYOGDSw==">-->
           <div class="field">
-          <label for="user_name">Name</label><br>
-            <div class="field">
+          <%= f.label :name %><br />
+          <div class="field">
           <%= f.text_field :name, autofocus: true %>
         </div>
         <div class="field">
-          <label for="user_email">Email</label><br>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
         </div>
         <div class="field">
-          <label for="user_password">Password</label>
+          <%= f.label :password %><br />
           <em>(6 characters minimum)</em>
           <br>
           <%= f.text_field :password, autofocus: true, autocomplete: "off" %>
         </div>
         <div class="field">
-          <label for="user_password_confirmation">Password confirmation</label><br>
+          <%= f.label :password_confirmation %><br />
           <input autocomplete="off" class="password_confirm" type="password" name="user[password_confirmation]" id="user_password_confirmation"></input>
         </div>
         <div class="actions">

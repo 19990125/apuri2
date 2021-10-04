@@ -1,12 +1,6 @@
 class UsersController < ApplicationController
-  protect_from_forgery
-  before_action :ensure_current_user, {only: [:edit, :update]}
-  def ensure_current_user
-     @user = User.find(params[:id])
-  if current_user.id != params[:id].to_i
-    redirect_to users_path(current_user.id)
-  end
-  end
+  before_action :authenticate_user!
+  before_action :ensure_current_user, only: [:edit, :update]
 
   def top
   end
@@ -34,12 +28,11 @@ class UsersController < ApplicationController
     user = User.new(user_params)
     @user.user_id = current_user.id
     if user.save
-      redirect_to group_messages_path(@group), notice: 'Welcome! You have signed up successfully.'
+      flash[:notice] ='Welcome! You have signed up successfully.'
+    redirect_to current_user(user.id)
     else
-      flash.now[:alert] = 'メッセージを入力してください。'
-      session[:user_id] = user.id
+      render:new
     end
-
   end
 
   def new
@@ -52,11 +45,20 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       flash[:success] = "You have updated user successfully."
       redirect_to user_path(current_user.id)
+    else
+      render:edit
     end
   end
 
   private
   def user_params
-    params.require(:user).permit(:name,:body,:email,:password,:user_id,:image_id)
+    params.require(:user).permit(:name,:introduction,:email,:password,:user_id,:profile_image)
+  end
+
+  def ensure_current_user
+     @user = User.find(params[:id])
+  if current_user.id != params[:id].to_i
+    redirect_to user_path(current_user)
+  end
   end
 end
